@@ -4,6 +4,8 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
+  cpf?: string;
+  isAdmin?: boolean;
   updatedAt: Date;
   createdAt: Date;
 }
@@ -25,6 +27,7 @@ export interface IUpdateUser {
 }
 export interface IUserService {
   getAll(): Promise<TUser>;
+  saveUser(user:IUser):void;
   update(idUser: string, updatedUser: IUpdateUser): Promise<boolean>;
   delete(idUser: string): Promise<boolean>;
 }

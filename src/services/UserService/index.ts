@@ -1,18 +1,22 @@
 import { AxiosResponse } from "axios";
-import { IUpdateUser, IUserService } from "../../interfaces/User";
+import { IUpdateUser, IUser, IUserService } from "../../interfaces/User";
 import { TUser } from "../../types/User";
 import { api } from "../api";
 
 class UserService implements IUserService {
   async getAll(): Promise<TUser> {
-    const response: AxiosResponse = await api.get("/api/account/user");
-
+    const response: AxiosResponse = await api.get("users");
+    
     return response.data;
   }
-
+  
+  saveUser(user: IUser): void {
+    localStorage.setItem("UserLogged", JSON.stringify(user));
+  }
+  
   async delete(idUser: string): Promise<boolean> {
     const response: AxiosResponse = await api.delete(
-      `/api/account/user/${idUser}`
+      `users/${idUser}`
     );
     const confirmation: boolean = response.status === 200;
 
@@ -21,7 +25,7 @@ class UserService implements IUserService {
 
   async update(idUser: string, updatedUser: IUpdateUser): Promise<boolean> {
     const response: AxiosResponse = await api.patch(
-      `/api/account/user/${idUser}`,
+      `users/${idUser}`,
       updatedUser
     );
     const confirmation: boolean = response.status == 200;
