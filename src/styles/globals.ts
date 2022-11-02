@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const SBody = styled.div`
   padding: 0;
   margin: 0;
